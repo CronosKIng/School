@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maombi ya Primary - Zanzibar School</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .form-section h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .btn {
+            background: #3498db;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        .btn:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fomu ya Maombi - Primary</h1>
+        
+        <form method="POST">
+            <!-- Student Information -->
+            <div class="form-section">
+                <h3>Taarifa za Mwanafunzi</h3>
+                <div class="form-group">
+                    <label>Jina Kamili la Mwanafunzi:</label>
+                    <input type="text" name="student_name" required>
+                </div>
+                <div class="form-group">
+                    <label>Tarehe ya Kuzaliwa:</label>
+                    <input type="date" name="birth_date" required>
+                </div>
+                <div class="form-group">
+                    <label>Anwani:</label>
+                    <input type="text" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label>Chagua Darasa:</label>
+                    <select name="class_level" required>
+                        <option value="">-- Chagua Darasa --</option>
+                        <option value="Darasa la 1">Darasa la 1</option>
+                        <option value="Darasa la 2">Darasa la 2</option>
+                        <option value="Darasa la 3">Darasa la 3</option>
+                        <option value="Darasa la 4">Darasa la 4</option>
+                        <option value="Darasa la 5">Darasa la 5</option>
+                        <option value="Darasa la 6">Darasa la 6</option>
+                        <option value="Darasa la 7">Darasa la 7</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Shule Iliyotangulia (Ikiwa applicable):</label>
+                    <input type="text" name="previous_school" placeholder="Jina la shule ya awali">
+                </div>
+            </div>
+
+            <!-- Parent Information -->
+            <div class="form-section">
+                <h3>Taarifa za Mzazi/Mlezi</h3>
+                <div class="form-group">
+                    <label>Jina la Mzazi/Mlezi:</label>
+                    <input type="text" name="parent_name" required>
+                </div>
+                <div class="form-group">
+                    <label>Namba ya Simu:</label>
+                    <input type="tel" name="parent_phone" required>
+                </div>
+                <div class="form-group">
+                    <label>Barua Pepe:</label>
+                    <input type="email" name="parent_email">
+                </div>
+            </div>
+
+            <!-- Security Questions -->
+            <div class="form-section">
+                <h3>Maswali ya Usalama</h3>
+                <div class="form-group">
+                    <label>Swali la Usalama 1:</label>
+                    <input type="text" name="security_question1" placeholder="Mf: Jina la shule ya kwanza?" required>
+                </div>
+                <div class="form-group">
+                    <label>Jibu la Swali 1:</label>
+                    <input type="text" name="security_answer1" required>
+                </div>
+                <div class="form-group">
+                    <label>Swali la Usalama 2:</label>
+                    <input type="text" name="security_question2" placeholder="Mf: Jina la kwanza la mama?" required>
+                </div>
+                <div class="form-group">
+                    <label>Jibu la Swali 2:</label>
+                    <input type="text" name="security_answer2" required>
+                </div>
+                <div class="form-group">
+                    <label>Swali la Usalama 3:</label>
+                    <input type="text" name="security_question3" placeholder="Mf: Jina la mji wa kuzaliwa?" required>
+                </div>
+                <div class="form-group">
+                    <label>Jibu la Swali 3:</label>
+                    <input type="text" name="security_answer3" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn">Endelea na Malipo</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maombi ya Nursery - Zanzibar School</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .form-section h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .btn {
+            background: #3498db;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        .btn:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fomu ya Maombi - Nursery</h1>
+        
+        <form method="POST">
+            <!-- Student Information -->
+            <div class="form-section">
+                <h3>Taarifa za Mtoto</h3>
+                <div class="form-group">
+                    <label>Jina Kamili la Mtoto:</label>
+                    <input type="text" name="student_name" required>
+                </div>
+                <div class="form-group">
+                    <label>Tarehe ya Kuzaliwa:</label>
+                    <input type="date" name="birth_date" required>
+                </div>
+                <div class="form-group">
+                    <label>Anwani:</label>
+                    <input type="text" name="address" required>
+                </div>
+            </div>
+            
+            <!-- Parent Information -->
+            <div class="form-section">
+                <h3>Taarifa za Mzazi/Mlezi</h3>
+                <div class="form-group">
+                    <label>Jina la Mzazi/Mlezi:</label>
+                    <input type="text" name="parent_name" required>
+                </div>
+                <div class="form-group">
+                    <label>Namba ya Simu:</label>
+                    <input type="tel" name="parent_phone" required>
+                </div>
+                <div class="form-group">
+                    <label>Barua Pepe:</label>
+                    <input type="email" name="parent_email">
+                </div>
+            </div>
+            
+            <button type="submit" class="btn">Endelea na Malipo</button>
+        </form>
+    </div>
+</body>
+</html>

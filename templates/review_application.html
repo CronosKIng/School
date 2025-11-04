@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kagua Maombi - Karani</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .application-details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .detail-group {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .detail-label {
+            font-weight: bold;
+            color: #2c3e50;
+            display: inline-block;
+            width: 200px;
+        }
+        .detail-value {
+            color: #555;
+        }
+        .btn-group {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-approve {
+            background: #27ae60;
+            color: white;
+        }
+        .btn-reject {
+            background: #e74c3c;
+            color: white;
+        }
+        .btn-back {
+            background: #95a5a6;
+            color: white;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        .status-pending {
+            background: #f39c12;
+            color: white;
+        }
+        .status-completed {
+            background: #27ae60;
+            color: white;
+        }
+        .status-approved {
+            background: #2980b9;
+            color: white;
+        }
+        .status-rejected {
+            background: #e74c3c;
+            color: white;
+        }
+        .rejection-form {
+            background: #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .rejection-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 Kagua Maombi ya Usajili</h1>
+        
+        <div class="application-details">
+            <div class="detail-group">
+                <span class="detail-label">Namba ya Kudhibiti:</span>
+                <span class="detail-value">{{ application.control_number }}</span>
+            </div>
+            
+            <div class="detail-group">
+                <span class="detail-label">Jina la Mtoto:</span>
+                <span class="detail-value">{{ application.student_name }}</span>
+            </div>
+            
+            <div class="detail-group">
+                <span class="detail-label">Tarehe ya Kuzaliwa:</span>
+                <span class="detail-value">{{ application.birth_date }}</span>
+            </div>
+            
+            <div class="detail-group">
+                <span class="detail-label">Anwani:</span>
+                <span class="detail-value">{{ application.address }}</span>
+            </div>
+            
+            <div class="detail-group">
+                <span class="detail-label">Darasa/Level:</span>
+                <span class="detail-value">
+                    {% if application.level == "KG" %}Nursery
+                    {% elif application.level == "PRIMARY" %}Primary
+                    {% elif application.level == "OLEVEL" %}O-Level
+                    {% elif application.level == "ALEVEL" %}A-Level
+                    {% else %}{{ application.level }}{% endif %}
+                </span>
+            </div>
+            
+            <div class="detail-group">
+                <span class="detail-label">Jina la Mzazi:</span>
+                <span class="detail-value">{{ application.parent_name }}</span>
+            </div>
+            
+            <div class="detail-group">
+                <span class="detail-label">Namba ya Simu:</span>
+                <span class="detail-value">{{ application.parent_phone }}</span>
+            </div>
+            
+            <div class="detail-group">
+                <span class="detail-label">Barua Pepe:</span>
+                <span class="detail-value">{{ application.parent_email or "Haijawekwa" }}</span>
+            </div>
+            
+            <div class="detail-group">
+                <span class="detail-label">Tarehe ya Kuomba:</span>
+                <span class="detail-value">{{ application.date_applied.strftime('%Y-%m-%d %H:%M') }}</span>
+            </div>
+            
+            <div class="detail-group">
+                <span class="detail-label">Hali ya Maombi:</span>
+                <span class="detail-value">
+                    <span class="status-badge 
+                        {% if application.status == 'Pending' %}status-pending
+                        {% elif application.status == 'Completed' %}status-completed
+                        {% elif application.status == 'Approved' %}status-approved
+                        {% elif application.status == 'Rejected' %}status-rejected
+                        {% endif %}">
+                        {{ application.status }}
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        {% if application.status == 'Completed' %}
+        <div class="btn-group">
+            <form action="{{ url_for('approve_application', app_id=application.id) }}" method="POST" style="display: inline;">
+                <button type="submit" class="btn btn-approve">✅ Idhinisha Usajili</button>
+            </form>
+            
+            <button type="button" class="btn btn-reject" onclick="showRejectionForm()">❌ Kataa Maombi</button>
+            
+            <a href="{{ url_for('secretary_applications') }}" class="btn btn-back">⬅️ Rudi Nyuma</a>
+        </div>
+
+        <div id="rejectionForm" class="rejection-form" style="display: none;">
+            <h3>Sababu ya Kukataa Maombi:</h3>
+            <form action="{{ url_for('reject_application', app_id=application.id) }}" method="POST">
+                <textarea name="rejection_reason" rows="4" placeholder="Andika sababu ya kukataa maombi..." required></textarea>
+                <button type="submit" class="btn btn-reject">Thibitisha Kukataa</button>
+                <button type="button" class="btn btn-back" onclick="hideRejectionForm()">Ghairi</button>
+            </form>
+        </div>
+        {% else %}
+        <div class="btn-group">
+            <a href="{{ url_for('secretary_applications') }}" class="btn btn-back">⬅️ Rudi kwenye Maombi</a>
+        </div>
+        
+        {% if application.status == 'Pending' %}
+        <div style="text-align: center; margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 5px;">
+            <p>ℹ️ Maombi haya bado hayajaisha malipo. Hii inamaanisha mzazi bado haja maliza malipo ya usajili.</p>
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>
+
+    <script>
+        function showRejectionForm() {
+            document.getElementById('rejectionForm').style.display = 'block';
+        }
+        
+        function hideRejectionForm() {
+            document.getElementById('rejectionForm').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

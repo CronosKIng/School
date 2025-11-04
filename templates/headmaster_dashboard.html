@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Mkuu wa Shule</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .header {
+            background: #e74c3c;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logout-btn {
+            background: #2c3e50;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #34495e;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .stat-card.primary { border-left: 4px solid #3498db; }
+        .stat-card.success { border-left: 4px solid #27ae60; }
+        .stat-card.warning { border-left: 4px solid #f39c12; }
+        .stat-card.danger { border-left: 4px solid #e74c3c; }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .action-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+            border-top: 4px solid #e74c3c;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .action-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .action-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .action-card p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .section-header h2 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+        }
+
+        .level-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .level-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #3498db;
+        }
+
+        .level-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .level-count {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .recent-activities {
+            list-style: none;
+        }
+
+        .activity-item {
+            padding: 15px;
+            border-bottom: 1px solid #ecf0f1;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            background: #e3f2fd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3498db;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .activity-time {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>Dashboard ya Mkuu wa Shule</h1>
+            <div class="user-info">
+                <span>Mkuu wa Shule: {{ session.username }}</span>
+                <a href="/logout" class="logout-btn">Toka</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card primary">
+                <h3>Jumla ya Wanafunzi</h3>
+                <div class="stat-number">{{ total_students }}</div>
+            </div>
+            <div class="stat-card success">
+                <h3>Maombi Yote</h3>
+                <div class="stat-number">{{ total_applications }}</div>
+            </div>
+            <div class="stat-card warning">
+                <h3>Maombi Yanayosubiri</h3>
+                <div class="stat-number">{{ pending_applications }}</div>
+            </div>
+            <div class="stat-card danger">
+                <h3>Wanafunzi Walioachwa</h3>
+                <div class="stat-number">0</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <div class="action-card" onclick="window.location.href='/secretary/dashboard'">
+                <div>👨‍💼</div>
+                <h3>Angalia Maombi</h3>
+                <p>Angalia na kudhibiti maombi yote</p>
+            </div>
+            <div class="action-card" onclick="window.location.href='#'">
+                <div>📊</div>
+                <h3>Ripoti za Ada</h3>
+                <p>Angalia malipo ya ada na deni</p>
+            </div>
+            <div class="action-card" onclick="window.location.href='#'">
+                <div>📚</div>
+                <h3>Matokeo</h3>
+                <p>Angalia matokeo ya mitihani</p>
+            </div>
+            <div class="action-card" onclick="window.location.href='#'">
+                <div>👨‍🏫</div>
+                <h3>Walimu</h3>
+                <p>Dhibiti orodha ya walimu</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>Mgawanyo wa Wanafunzi kwa Viwango</h2>
+            </div>
+            <div class="level-breakdown">
+                <div class="level-card">
+                    <h4>Nursery (KG)</h4>
+                    <div class="level-count">
+                        {{ total_students // 4 }}
+                    </div>
+                </div>
+                <div class="level-card">
+                    <h4>Primary</h4>
+                    <div class="level-count">
+                        {{ total_students // 4 }}
+                    </div>
+                </div>
+                <div class="level-card">
+                    <h4>O Level</h4>
+                    <div class="level-count">
+                        {{ total_students // 4 }}
+                    </div>
+                </div>
+                <div class="level-card">
+                    <h4>A Level</h4>
+                    <div class="level-count">
+                        {{ total_students // 4 }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>Shughuli za Hivi Karibuni</h2>
+            </div>
+            <ul class="recent-activities">
+                <li class="activity-item">
+                    <div class="activity-icon">📝</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Maombi Mapya Yamewasilishwa</div>
+                        <div class="activity-time">Muda: Dakika 15 zilizopita</div>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-icon">✅</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Mwanafunzi Amesajiliwa</div>
+                        <div class="activity-time">Muda: Saa 2 zilizopita</div>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-icon">💰</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Malipo ya Ada Yamepokewa</div>
+                        <div class="activity-time">Muda: Saa 4 zilizopita</div>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-icon">📢</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Tangazo Jipya Limechapishwa</div>
+                        <div class="activity-time">Muda: Siku 1 iliyopita</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Add interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Make action cards clickable
+            const actionCards = document.querySelectorAll('.action-card');
+            actionCards.forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', function() {
+                    // Add click animation
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

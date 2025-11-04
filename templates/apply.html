@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fomu ya Maombi - Shule Yetu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .security-questions {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 4px solid #3498db;
+        }
+
+        .security-questions h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-back {
+            background: #95a5a6;
+            color: white;
+            margin-top: 15px;
+        }
+
+        .btn-back:hover {
+            background: #7f8c8d;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Fomu ya Maombi ya Kujiunga</h1>
+            <p>Jaza taarifa zote kwa makini na usahihi</p>
+        </div>
+
+        <div class="form-container">
+            <form method="POST" action="/apply">
+                <!-- Taarifa za Mwanafunzi -->
+                <h3 style="color: #2c3e50; margin-bottom: 20px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
+                    Taarifa za Mwanafunzi
+                </h3>
+                
+                <div class="form-group">
+                    <label for="student_name">Jina Kamili la Mwanafunzi <span class="required">*</span></label>
+                    <input type="text" id="student_name" name="student_name" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="birth_date">Tarehe ya Kuzaliwa <span class="required">*</span></label>
+                        <input type="date" id="birth_date" name="birth_date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="level">Kiwango cha Kujiunga <span class="required">*</span></label>
+                        <select id="level" name="level" required>
+                            <option value="">Chagua Kiwango</option>
+                            <option value="KG">Nursery (KG)</option>
+                            <option value="PRIMARY">Primary</option>
+                            <option value="OLEVEL">Secondary - O Level</option>
+                            <option value="ALEVEL">Secondary - A Level</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Anwani ya Makazi <span class="required">*</span></label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
+                </div>
+
+                <!-- Taarifa za Mzazi/Mlezi -->
+                <h3 style="color: #2c3e50; margin: 40px 0 20px 0; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
+                    Taarifa za Mzazi/Mlezi
+                </h3>
+
+                <div class="form-group">
+                    <label for="parent_name">Jina Kamili la Mzazi/Mlezi <span class="required">*</span></label>
+                    <input type="text" id="parent_name" name="parent_name" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="parent_phone">Namba ya Simu <span class="required">*</span></label>
+                        <input type="tel" id="parent_phone" name="parent_phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="parent_email">Barua Pepe</label>
+                        <input type="email" id="parent_email" name="parent_email">
+                    </div>
+                </div>
+
+                <!-- Maswali ya Usalama -->
+                <div class="security-questions">
+                    <h3>Maswali ya Usalama (Kwa Ajili ya Kurejesha Nenosiri)</h3>
+                    <p style="color: #7f8c8d; margin-bottom: 20px; font-size: 0.9rem;">
+                        Chagua maswali matatu na ujibu kwa usahihi. Yatatumika kuthibitisha utambulisho wako.
+                    </p>
+
+                    <div class="form-group">
+                        <label for="security_question1">Swali la Kwanza la Usalama <span class="required">*</span></label>
+                        <select id="security_question1" name="security_question1" required>
+                            <option value="">Chagua Swali</option>
+                            <option value="Jina la kwanza la shule uliyokwenda?">Jina la kwanza la shule uliyokwenda?</option>
+                            <option value="Jina la kwanza la rafiki yako wa utotani?">Jina la kwanza la rafiki yako wa utotani?</option>
+                            <option value="Jina la mnyama wako wa kwanza?">Jina la mnyama wako wa kwanza?</option>
+                            <option value="Jina la kijiji ulikozaliwa?">Jina la kijiji ulikozaliwa?</option>
+                        </select>
+                        <input type="text" name="security_answer1" placeholder="Jibu la swali" required style="margin-top: 10px;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="security_question2">Swali la Pili la Usalama <span class="required">*</span></label>
+                        <select id="security_question2" name="security_question2" required>
+                            <option value="">Chagua Swali</option>
+                            <option value="Jina la kwanza la shule ya msingi?">Jina la kwanza la shule ya msingi?</option>
+                            <option value="Jina la mwalimu wako wa kwanza?">Jina la mwalimu wako wa kwanza?</option>
+                            <option value="Jina la kitabu unachokipenda?">Jina la kitabu unachokipenda?</option>
+                            <option value="Jina la mtu maarufu unayemwona kama mfano?">Jina la mtu maarufu unayemwona kama mfano?</option>
+                        </select>
+                        <input type="text" name="security_answer2" placeholder="Jibu la swali" required style="margin-top: 10px;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="security_question3">Swali la Tatu la Usalama <span class="required">*</span></label>
+                        <select id="security_question3" name="security_question3" required>
+                            <option value="">Chagua Swali</option>
+                            <option value="Jina la kwanza la shamba la familia?">Jina la kwanza la shamba la familia?</option>
+                            <option value="Jina la kwanza la gari la familia?">Jina la kwanza la gari la familia?</option>
+                            <option value="Jina la kwanza la mji uliopendezwa nao?">Jina la kwanza la mji uliopendezwa nao?</option>
+                            <option value="Jina la kwanza la ndugu yako wa kwanza?">Jina la kwanza la ndugu yako wa kwanza?</option>
+                        </select>
+                        <input type="text" name="security_answer3" placeholder="Jibu la swali" required style="margin-top: 10px;">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Wasilisha Maombi</button>
+                <a href="/" class="btn btn-back">Rudi Nyumbani</a>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Auto-fill level from URL parameter
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const level = urlParams.get('level');
+            if (level) {
+                document.getElementById('level').value = level;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malipo - Zanzibar School</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .payment-info {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .payment-details {
+            margin-bottom: 30px;
+        }
+        .bank-account {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border-left: 4px solid #3498db;
+        }
+        .btn {
+            background: #27ae60;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background: #219a52;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Malipo ya Ada ya Maombi</h1>
+        
+        <div class="payment-info">
+            <h3>Taarifa za Maombi</h3>
+            <p><strong>Jina la Mwanafunzi:</strong> {{ application.student_name }}</p>
+            <p><strong>Kiwango:</strong> {{ application.level }}</p>
+            <p><strong>Nambari ya Udhibiti:</strong> {{ application.control_number }}</p>
+            <p><strong>Kiasi cha Kulipa:</strong> TZS {{ "{:,}".format(amount) }}</p>
+        </div>
+
+        <div class="payment-details">
+            <h3>Nambari za Akaunti za Malipo</h3>
+            {% for account in payment_numbers %}
+            <div class="bank-account">
+                <strong>{{ account.bank }}</strong><br>
+                Akaunti: {{ account.account }}<br>
+                Jina: {{ account.name }}
+            </div>
+            {% endfor %}
+        </div>
+
+        <p><strong>Maelekezo:</strong> Fanya malipo kwa kutumia nambari yoyote hapo juu, kisha bofya kitufe cha "Malipo Yamekamilika" chini.</p>
+
+        <a href="{{ url_for('complete_application', app_id=application.id) }}" class="btn">
+            Malipo Yamekamilika
+        </a>
+    </div>
+</body>
+</html>
